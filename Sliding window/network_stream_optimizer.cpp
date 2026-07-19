@@ -72,3 +72,9 @@ int main() {
    cout<<answer;
     return 0;
 }
+
+/*
+This code shows: TLE
+Bcz Time complexity: O(N * K)
+How to Optimize to O(N) or O(N log K)
+*/ 
