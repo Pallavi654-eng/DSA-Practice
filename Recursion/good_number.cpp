@@ -1,4 +1,5 @@
 /*Question : Count good number:
+LEETCODE: 1922. Count Good Numbers
 A digit string is good if the digits (0-indexed) at even indices are even and the digits at odd indices are prime (2, 3, 5, or 7).
 "2582" is good because the digits (2 and 8) at even positions are even and the digits (5 and 2) at odd positions are prime
 */
