@@ -87,14 +87,14 @@ int main() {
             maximum=arr[i];
         }
     }
-    int B;
+    long long B;
     cin>>B;
     int low=0;
     int high=maximum;
     int answer=0;
     while(low<=high){
         int mid=low+(high-low)/2;
-        int sum =0;
+        long long sum =0;
         // calculate sum
         for(int i=0; i<n; i++){
             if(arr[i]>mid){
