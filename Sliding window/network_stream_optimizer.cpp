@@ -1,4 +1,5 @@
 /*Question:
+    TOPIC: Sliding Window
 The ScenarioYou are interviewing for a software engineering role at a high-speed video streaming platform. 
 The interviewer hands you a problem based on network packets.During live streams, video data is split into 
 sequential packets. Each packet has a certain data weight (load) measured in megabytes. Due to network jitter,
