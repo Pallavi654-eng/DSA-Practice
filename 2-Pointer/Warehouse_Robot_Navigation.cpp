@@ -69,6 +69,7 @@ int main() {
         robots[i].index = i;
     }
     // Sort according to position
+    //and it is important to sort their positions because if input order: [8 1 5] but actually they will be on rail line like:[1 5 8]
     sort(robots.begin(), robots.end(),[](Robot &a, Robot &b){
             return a.position < b.position;
         });
@@ -81,8 +82,7 @@ int main() {
         }
         else{
             // Moving Left
-            while(!st.empty() &&
-                robots[st.top()].direction == 1 &&
+            while(!st.empty() && robots[st.top()].direction == 1 &&
                 robots[i].alive){
 
                 // Right robot is stronger
@@ -121,7 +121,6 @@ int main() {
             cout << robot.mass << " ";
         }
     }
-    
     
     return 0;
 }
