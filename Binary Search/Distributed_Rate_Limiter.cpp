@@ -1,4 +1,5 @@
 /*
+                        TOUGH - TOUGH   
 You are in a coding round for a cloud security infrastructure team.An API gateway handles incoming requests arriving at
 specific timestamps given in a sorted array timestamps. You are given an integer K, representing the maximum number of
 new monitoring checkpoints you are allowed to add, and an integer budget constraint.To ensure even log coverage across traffic 
