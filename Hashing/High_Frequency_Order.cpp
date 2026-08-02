@@ -29,3 +29,33 @@ Time Complexity: O(N log N) or O(N log K) where K is the number of unique ticker
 
 
 */
+
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <unordered_map>
+using namespace std;
+
+int main(){
+    int n;
+    cin>>n;
+    vector<string> tickers(n);
+    for(int i=0; i<n; i++){
+        cin>>tickers[i];
+    }
+
+    //frequency count
+    unordered_map <string, int> freq;
+    for(int i=0; i<n; i++){
+        freq[tickers[i]]++;
+    }
+
+    sort(tickers.begin(), tickers.end(), [&](string a, string b){
+        if(freq[a]==freq[b]) return a<b;
+        return freq[a]>freq[b];
+    });
+
+    for(int i=0; i<n; i++){
+        cout<<tickers[i]<<" ";
+    }
+}
