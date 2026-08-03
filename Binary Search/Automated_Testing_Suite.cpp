@@ -1,4 +1,4 @@
-/*Question: 
+/*Question:             HARD
 A software testing suite runs N test cases sequentially. The time taken by the i-th test case is given in an array 
 timeRequired. You have K parallel testing workers available.Because the test cases must be executed in the exact sequential 
 order they are defined to maintain state dependencies, you must divide the array into K continuous subarrays. Each worker is 
@@ -13,7 +13,7 @@ Example:
 Input: timeRequired = [1, 2, 3, 4, 5, 6, 7], K = 3
 Output: 9
 
-Explanation: 
+Explanation:
 We can split the sequential tests into 3 continuous blocks:
 Worker 1: [1, 2, 3] -> Total time = 6
 Worker 2: [4, 5]    -> Total time = 9
@@ -48,4 +48,61 @@ If separated, [6] and [7]. Then [1,2,3,4,5] must be done by 1 worker (15).
 Therefore, the minimum possible maximum workload for this specific array is 11.
 
 */
+
+// Make the largest worker load as small as possible.
+// Trying every split takes millions of possible partitions
+/* Wherever you see :
+-> Minimize the maximum
+-> Maximize the minimum
+-> Split into K parts
+-> Allocate K workers
+-> Partition array
+-> Continuous subarrays
+            Think of Binary Search
+*/
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+bool isPossible(vector<int>& timeRequired, int k, int maxTime){
+    int workers =1;
+    int currentSum=0;
+    for(int time : timeRequired){
+        if(currentSum + time > maxTime){
+            workers++;
+            currentSum = time;
+        } else {
+            currentSum += time;
+        }
+    }
+    return workers <= k;
+}
+
+int minimizeMAximumTime(vector<int>& timeRequired, int k){
+    int low = *max_element(timeRequired.begin(), timeRequired.end());
+    int high = accumulate(timeRequired.begin(), timeRequired.end(), 0);
+    int answer = high;
+
+    while(low <= high){
+        int mid = low + (high - low) / 2;
+        
+        if(isPossible(timeRequired, k, mid)){
+            answer = mid;
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+    return answer;
+}
+
+int main(){
+    vector<int> timeRequired = {1, 2, 3, 4, 5, 6, 7};
+    int k = 3;
+    int result = minimizeMAximumTime(timeRequired, k);
+    cout << "The minimum possible maximum workload is: " << result << endl;
+    return 0;
+}
 
