@@ -28,3 +28,111 @@ Constraints:
 Time Complexity: O(N log (summation (weights)))
 
 */
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+
+using namespace std;
+
+// Function to check if a given capacity is enough
+bool isPossible(vector<int> &weights, int D, int capacity){
+    int days = 1;          // Start with Day 1
+    int currentWeight = 0; // Current load on the drone
+
+    for (int weight : weights){
+        // If adding this package exceeds the capacity,
+        // send the current drone and start the next day.
+        if (currentWeight + weight > capacity){
+            days++;
+            currentWeight = weight;
+        }
+        else{
+            currentWeight += weight;
+        }
+    }
+    return days <= D;
+}
+
+int leastCapacity(vector<int> &weights, int D){
+    // Minimum possible capacity
+    int low = *max_element(weights.begin(), weights.end());
+
+    // Maximum possible capacity
+    int high = accumulate(weights.begin(), weights.end(), 0);
+    int answer = high;
+    while (low <= high){
+        int mid = low + (high - low) / 2;
+        if (isPossible(weights, D, mid)){
+            answer = mid;
+            high = mid - 1;
+        }else{
+            low = mid + 1;
+        }
+    }
+    return answer;
+}
+
+int main()
+{
+    vector<int> weights = {1,2,3,4,5,6,7,8,9,10};
+    int D = 5;
+    cout << leastCapacity(weights, D);
+    return 0;
+}
+
+/*
+        ANOTHER SYNTAX
+class Solution {
+public:
+
+    bool isPossible(vector<int>& weights, int days, int capacity)
+    {
+        int currentWeight = 0;
+        int requiredDays = 1;
+
+        for(int weight : weights)
+        {
+            if(currentWeight + weight > capacity)
+            {
+                requiredDays++;
+                currentWeight = weight;
+            }
+            else
+            {
+                currentWeight += weight;
+            }
+        }
+
+        return requiredDays <= days;
+    }
+
+    int shipWithinDays(vector<int>& weights, int days)
+    {
+        int low = *max_element(weights.begin(), weights.end());
+
+        int high = accumulate(weights.begin(), weights.end(), 0);
+
+        int ans = high;
+
+        while(low <= high)
+        {
+            int mid = low + (high - low) / 2;
+
+            if(isPossible(weights, days, mid))
+            {
+                ans = mid;
+                high = mid - 1;
+            }
+            else
+            {
+                low = mid + 1;
+            }
+        }
+
+        return ans;
+    }
+};
+
+*/

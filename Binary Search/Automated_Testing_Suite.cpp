@@ -67,8 +67,8 @@ Therefore, the minimum possible maximum workload for this specific array is 11.
 using namespace std;
 
 bool isPossible(vector<int>& timeRequired, int k, int maxTime){
-    int workers =1;
-    int currentSum=0;
+    int workers =1;             //we already have first worker
+    int currentSum=0;       //bcz current worker hasn't received any work
     for(int time : timeRequired){
         if(currentSum + time > maxTime){
             workers++;
